@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Recipient Name</th>
+      <th scope="col">Recipient Email</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let signature of signatures">
+      <td>{{signature.recipient?.name}}</td>
+      <td>{{signature.recipient?.email}}</td>
+      <td>{{signature.status}}
+        <a *ngIf="signature.status === 'Signed'" target="_blank" href="http://localhost:5233/api/File/signedFile/{{signature.id}}">(download)</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

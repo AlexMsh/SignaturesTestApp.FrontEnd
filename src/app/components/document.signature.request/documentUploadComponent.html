@@ -1,0 +1,47 @@
+<form #signatureForm="ngForm">
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Recipient Email*</label>
+    <div class="col-sm-10">
+      <input type="email" required #email="ngModel" [email]="true" [ngClass]="{'is-invalid' : email.invalid && (email.dirty || email.touched)}" class="form-control" id="email" name="email" [(ngModel)]="signatureModel.recipientEmail" placeholder="Recipient Email">
+    </div>
+    <!-- validation look a bit ugly here, but i want to use custom styles 
+         also, don't want to use (I believe it's called "template driven forms" as setting up forms through the markup is easier & faster)
+    -->
+    <div style="display:block" *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+      Recipient Email is required.
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Recipient Name*</label>
+    <div class="col-sm-10">
+      <input type="text" required #name="ngModel" [ngClass]="{'is-invalid' : email.invalid && (email.dirty || email.touched)}" class="form-control" id="recipientName" name="recipientName" [ngModel]="signatureModel.recipientName" (ngModelChange)="signatureModel.recipientName = $event" placeholder="Recipient Name">
+    </div>
+    <div style="display:block" *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+      Recipient Name is required.
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputMessage" class="col-sm-2 col-form-label">Message*</label>
+    <div class="col-sm-10">
+      <input type="text" required #message="ngModel" [ngClass]="{'is-invalid' : email.invalid && (email.dirty || email.touched)}" class="form-control" id="message" name="message" [ngModel]="signatureModel.message" (ngModelChange)="signatureModel.message = $event" placeholder="Message">
+    </div>
+    <div style="display:block" *ngIf="message.invalid && (message.dirty || message.touched)" class="invalid-feedback">
+      Message is required.
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Pdf file (to be signed)*</label>
+    <div class="col-sm-10">
+      <input type="file" required #file="ngModel" accept=".pdf" class="form-control" id="file" name="file" [ngModel]="file" (change)="onFileSelected($event)">
+    </div>
+    <div style="display:block" *ngIf="file.invalid && (file.dirty || file.touched)" class="invalid-feedback">
+      File is required.
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" [ngClass]="{'disabled' : isUploading || !signatureForm.valid}" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</form>
